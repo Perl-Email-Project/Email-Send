@@ -50,12 +50,31 @@ SKIP:
   like( $return, qr/cannot execute/, 'error message says what we expect' );
 }
 
+my $has_FileTemp = eval { require File::Temp; };
+
 SKIP:
 {
-  skip 'Cannot run this test unless current perl is at /usr/bin/perl', 1
-    unless -x '/usr/bin/perl' && $^X eq '/usr/bin/perl';
+  skip 'Cannot run this test unless current perl is -x', 1 unless -x $^X;
 
-  local $Email::Send::Sendmail::SENDMAIL = './util/executable';
+  skip 'Cannot run this test without File::Temp', 1 unless $has_FileTemp;
+  my $tempdir = File::Temp::tempdir();
+
+  require File::Spec;
+
+  my $error = "can't prepare executable test script";
+
+  my $filename = File::Spec->catfile($tempdir, "executable");
+  open my $fh, ">", $filename or skip $error, 1;
+
+  open my $exec, "<", './util/executable' or skip $error, 1;
+
+  print {$fh} "#!$^X\n" or skip $error, 1;
+  print {$fh} <$exec>   or skip $error, 1;
+  close $fh             or skip $error, 1;
+
+  chmod 0755, $filename;
+
+  local $Email::Send::Sendmail::SENDMAIL = $filename;
   my $sender = Email::Send->new({mailer => 'Sendmail'});
   my $return = $sender->send($email);
   ok( $return, 'send() succeeded with executable $SENDMAIL' );
@@ -63,10 +82,26 @@ SKIP:
 
 SKIP:
 {
-  skip 'Cannot run this test unless current perl is at /usr/bin/perl', 2
-    unless -x '/usr/bin/perl' && $^X eq '/usr/bin/perl';
+  skip 'Cannot run this test unless current perl is -x', 1 unless -x $^X;
 
-  local $ENV{PATH} = './util';
+  skip 'Cannot run this test without File::Temp', 1 unless $has_FileTemp;
+  my $tempdir = File::Temp::tempdir();
+
+  require File::Spec;
+
+  my $error = "can't prepare executable test script";
+
+  my $filename = File::Spec->catfile($tempdir, "sendmail");
+  open my $sendmail_fh, ">", $filename or skip $error, 1;
+  open my $template_fh, "<", './util/sendmail' or skip $error, 1;
+
+  print {$sendmail_fh} "#!$^X\n"      or skip $error, 1;
+  print {$sendmail_fh} <$template_fh> or skip $error, 1;
+  close $sendmail_fh                  or skip $error, 1;
+
+  chmod 0755, $filename;
+
+  local $ENV{PATH} = $tempdir;
   my $sender = Email::Send->new({mailer => 'Sendmail'});
   my $return = $sender->send($email);
   ok( $return, 'send() succeeded with executable sendmail in path' );

@@ -1,5 +1,4 @@
 package Email::Send::IO;
-# $Id: IO.pm,v 1.7 2006/04/20 15:39:06 cwest Exp $
 use strict;
 
 use Return::Value;

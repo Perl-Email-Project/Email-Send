@@ -14,8 +14,14 @@ README
 t/classic.t
 t/email-send-test.t
 t/email-send.t
+t/foreign-mailer.t
+t/no-import.t
+t/object-mailer.t
 t/sendmail.t
 t/test.t
+t/lib/Email/Send/OK.pm
+t/lib/OKMailer.pm
+t/lib/OKMailerOO.pm
 util/executable
 util/not-executable
 util/sendmail

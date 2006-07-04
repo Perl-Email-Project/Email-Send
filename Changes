@@ -1,3 +1,11 @@
+2.10    2006-07-03
+
+  - improve portability of sendmail.t (rjbs)
+  - fix bugs with plugins outside Email::Send:: (rjbs)
+  - allow objects as mailers (rjbs)
+  - clarify documentation (rjbs)
+  - improve backwards compat with Email::Send 1 (see no-import.t) (rjbs)
+
 2.05    2006-04-20
 
   - Removed UNIVERSAL::require use.

@@ -1,14 +1,14 @@
 package Email::Send;
-# $Id: Send.pm,v 1.17 2006/04/20 15:39:06 cwest Exp $
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.05';
+$VERSION   = '2.10';
 
 use base qw[Class::Accessor::Fast];
 use Email::Simple;
 use Module::Pluggable search_path => 'Email::Send';
 use Return::Value;
+use Scalar::Util ();
 
 =head1 NAME
 
@@ -56,7 +56,7 @@ and simple, easy to use, and easy to extend.
 
 =item new()
 
-  my $mailer = Email::Send->new({
+  my $sender = Email::Send->new({
       mailer      => 'NNTP',
       mailer_args => [ Host => 'nntp.example.com' ],
   });
@@ -113,7 +113,7 @@ __PACKAGE__->mk_accessors(qw[mailer mailer_args message_modifier _plugin_list]);
 
 =item send()
 
-  my $result = $mailer->send($message, @modifier_args);
+  my $result = $sender->send($message, @modifier_args);
 
 Send a message using the predetermined mailer and mailer arguments. If you
 have defined a C<message_modifier> it will be called prior to sending.
@@ -128,9 +128,10 @@ C<message_modifier>.
 =cut
 
 sub send {
-    my ($self, $message, @args) = @_;
-    my $simple = $self->_objectify_message($message);
-    return failure "No message found." unless $simple;
+  goto &_send_function unless eval { $_[0]->isa('Email::Send') };
+  my ($self, $message, @args) = @_;
+  my $simple = $self->_objectify_message($message);
+  return failure "No message found." unless $simple;
 
 	$self->message_modifier(
 		$self, $simple,
@@ -146,7 +147,7 @@ sub send {
 
 =item all_mailers()
 
-  my @available = $mailer->all_mailers;
+  my @available = $sender->all_mailers;
 
 Returns a list of availabe mailers. These are mailers that are
 installed on your computer and register themselves as available.
@@ -165,8 +166,8 @@ sub all_mailers {
 =item mailer_available()
 
   # is SMTP over SSL avaialble?
-  $mailer->mailer('SMTP')
-    if $mailer->mailer_available('SMTP', ssl => 1);
+  $sender->mailer('SMTP')
+    if $sender->mailer_available('SMTP', ssl => 1);
 
 Given the name of a mailer, such as C<SMTP>, determine if it is
 available. Any additional arguments passed to this method are passed
@@ -177,16 +178,18 @@ directly to the C<is_available()> method of the mailer being queried.
 =cut
 
 sub mailer_available {
-	my ($self, $mailer, @args) = @_;
-	if ( my $package = $self->_plugin_list->{$mailer} ) {
-	    eval "CORE::require $package" or return failure $@;
-	    $package->can('is_available')
-	      or return failure "Mailer $mailer doesn't report availability.";
-		my $test = $package->is_available(@args);
-		return $test unless $test;
-		return success;
-	}
-	return failure "Mailer $mailer not found.";
+  my ($self, $mailer, @args) = @_;
+
+  my $invocant = $self->_mailer_invocant($mailer);
+
+  return $invocant unless $invocant;
+
+  $invocant->can('is_available')
+    or return failure "Mailer $mailer doesn't report availability.";
+
+  my $test = $invocant->is_available(@args);
+  return $test unless $test;
+  return success;
 }
 
 sub _objectify_message {
@@ -199,14 +202,29 @@ sub _objectify_message {
     return undef;
 }
 
-sub _send_it {
-	my ($self, $mailer, $message) = @_;
-	my $test = $self->mailer_available($mailer);
-	return $test unless $test;
+sub _mailer_invocant {
+  my ($self, $mailer) = @_;
 
-    my $package = $self->_plugin_list->{$mailer};
-    eval "CORE::require $package" or return failure;
-	return $package->send($message, @{$self->mailer_args});
+  return $mailer if Scalar::Util::blessed($mailer);
+
+  # is the mailer a plugin given by short name?
+  my $package = exists $self->_plugin_list->{$mailer}
+               ? $self->_plugin_list->{$mailer}
+               : $mailer;
+
+  eval "require $package" or return failure "$@";
+
+  return $package;
+}
+
+sub _send_it {
+    my ($self, $mailer, $message) = @_;
+    my $test = $self->mailer_available($mailer);
+    return $test unless $test;
+
+    my $invocant = $self->_mailer_invocant($mailer);
+
+    return $invocant->send($message, @{$self->mailer_args});
 }
 
 sub _try_all {
@@ -259,7 +277,7 @@ If you don't, the full name will have to be used. A mailer only needs
 to implement a single function, C<send>. It will be called from
 C<Email::Send> exactly like this.
 
-  Your::Sending::Package::send($message, @args);
+  Your::Sending::Package->send($message, @args);
 
 C<$message> is an Email::Simple object, C<@args> are the extra
 arguments passed into C<Email::Send::send>.
@@ -277,7 +295,7 @@ Here's an example of a mailer that sends email to a URL.
   }
 
   sub send {
-      my ($message, @args);
+      my ($class, $message, @args);
 
 	  use LWP::UserAgent;
 
@@ -296,12 +314,12 @@ Here's an example of a mailer that sends email to a URL.
 This example will keep a UserAgent singleton unless new arguments are
 passed to C<send>. It is used by calling C<Email::Send::send>.
 
-  my $mailer = Email::Send->new({ mailer => 'HTTP::Post' });
+  my $sender = Email::Send->new({ mailer => 'HTTP::Post' });
   
-  $mailer->mailer_args([ 'http://example.com/incoming', 'message' ]);
+  $sender->mailer_args([ 'http://example.com/incoming', 'message' ]);
 
-  $mailer->send($message);
-  $mailer->send($message2); # uses saved $URL and $FIELD
+  $sender->send($message);
+  $sender->send($message2); # uses saved $URL and $FIELD
 
 =head1 SEE ALSO
 
