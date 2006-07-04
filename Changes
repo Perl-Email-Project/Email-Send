@@ -1,0 +1,89 @@
+2.05    2006-04-20
+
+  - Removed UNIVERSAL::require use.
+
+2.04    2006-01-28
+
+  - Integrated Email::Send::Test (Adam Kennedy).
+
+2.03    2006-01-28
+
+  - Updated tests to only check the interface of distributed mailers.
+  - Updated Email::Send::Sendmail to provide much more detail when mail fails
+    to send. (Dave Rolksy and Casey West).
+
+2.01    2006-01-17
+
+  - Updated tests to only check distributed mailers.
+  - Updated version numbers in all packages for proper indexing.
+
+2.00    2005-12-15
+
+  - Grafted Classic interface but did not document it.
+
+1.99_01    2005-05-09
+
+  - Major changes to API.
+  - Changes to Makefile.PL to aid in recommended module builds.
+  - Alpha-release of new interface.
+
+1.46   2005-01-08
+
+  - SMTP was broken. I made a horrible mistake with my use of eval.
+    Honestly, I feel quite silly. I'm sorry.
+  - Added eg/send-email.pl, a program to aid in testing and debuging
+    of this code.
+
+1.45   2004-12-22
+
+  - Bug in Email::Send::SMTP in collecting addresses to send for RCPT.
+  - Added more error checking in Email::Send::SMTP to return proper
+    diagnostics.
+  - Updated dependencies.
+
+1.44   2004-12-17
+
+  - Make Email::Send::SMTP use Return::Value for its returns. These
+    are compatible with previous behavior, but offer more detail on
+    just what went wrong.
+  - Require Return::Value as a dependency. Other mailers may begin
+    using it for returns in the future.
+
+1.43   2004-08-07
+
+  - Make Email::Send::SMTP send args to Net::SMTP with host first.
+    This makes older Net::SMTPs happy.
+
+1.42   2004-07-29
+
+  - Remove hard dependency on Email::Abstract (for IO::All).
+  - Declare hard dependency on Email::Simple.
+
+1.41   2004-07-20
+
+  - Only set defaults for $Sendmail and $Qmail in those mailers
+    when the package variable is not already set (Peter Scott).
+  - SSL support for Email::Send::SMTP.
+  - Use different version scheme, I need more numbers.
+
+1.4    2004-07-08
+
+  - Relaxed prereq on IO::All for testing.
+  - Included Bcc in list of addresses to MAIL TO: in
+    Email::Send::SMTP.
+  - Now supports Net::SMTP's auth() (Aaron Trevena).
+
+1.3    2004-07-05
+
+  - Doc typo in Email::Send::Sendmail (Martin 'Kingpin' Thurn).
+
+1.2    2004-06-29
+
+  - Email::Send::SMTP now sends multiple MAIL commands for
+    each address in the To and Cc headers. It does not fail
+    when it encounters bad addresses, as long as at least one
+    address succeeds.
+
+1.1    2004-05-27
+
+  - Initial version.
