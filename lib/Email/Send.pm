@@ -2,7 +2,7 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.10';
+$VERSION   = '2.11';
 
 use base qw[Class::Accessor::Fast];
 use Email::Simple;
@@ -133,7 +133,7 @@ sub send {
   my $simple = $self->_objectify_message($message);
   return failure "No message found." unless $simple;
 
-	$self->message_modifier(
+	$self->message_modifier->(
 		$self, $simple,
 		@args,
 	) if $self->message_modifier;

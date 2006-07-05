@@ -1,3 +1,8 @@
+2.11    2006-07-05
+
+  - fixed bug introduced in 2.10; message modifiers were broken
+    thanks ABH
+
 2.10    2006-07-03
 
   - improve portability of sendmail.t (rjbs)
