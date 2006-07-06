@@ -1,4 +1,4 @@
-use Test::More tests => 9;
+use Test::More tests => 11;
 use strict;
 $^W = 1;
 
@@ -61,4 +61,11 @@ END_MESSAGE
   my $rv = $sender->send($message);
   ok(!$rv, "we couldn't send when the only choice fails");
   like("$rv", qr/unable to send/i, "and we got the expected error message");
+}
+
+{
+  my $rv = send(Unavail => $message);
+
+  ok(!$rv, "we can't send to an unavailable mailer");
+  like("$rv", qr/never available/i, "and we get its unavailable failure");
 }
