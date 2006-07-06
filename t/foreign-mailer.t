@@ -1,4 +1,4 @@
-use Test::More qw[no_plan];
+use Test::More tests => 3;
 # $Id: classic.t,v 1.1 2006/01/17 22:11:38 cwest Exp $
 use strict;
 $^W =1;

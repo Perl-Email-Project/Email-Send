@@ -3,7 +3,6 @@ package Email::Send::OK;
 use Test::More;
 
 use strict;
-use warnings;
 
 sub is_available { 1 }
 

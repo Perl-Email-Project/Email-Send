@@ -1,4 +1,4 @@
-use Test::More qw[no_plan];
+use Test::More tests => 20;
 use strict;
 $^W = 1;
 
@@ -14,15 +14,15 @@ can_ok $_, 'is_available', 'send'
 my $mailer = Email::Send->new();
 isa_ok $mailer, 'Email::Send';
 
-ok ! $mailer->mailer;
-ok ! @{$mailer->mailer_args};
-ok ! $mailer->message_modifier;
+ok ! $mailer->mailer, "it has no defined mailer";
+ok ! @{$mailer->mailer_args}, "and no mailer args";
+ok ! $mailer->message_modifier, "and no message modifier";
 
 $mailer->mailer('SMTP');
 $mailer->mailer_args([Host => 'localhost']);
 $mailer->message_modifier(sub {1});
 
-is $mailer->mailer, 'SMTP';
-is $mailer->mailer_args->[1], 'localhost';
-is ref($mailer->message_modifier), 'CODE';
-is $mailer->message_modifier->(), 1;
+is $mailer->mailer, 'SMTP', "we've set its mailer to smtp";
+is $mailer->mailer_args->[1], 'localhost', "and set a mailer arg";
+is ref($mailer->message_modifier), 'CODE', "and a message modifier";
+is $mailer->message_modifier->(), 1, "and the message modifier can be called";

@@ -1,10 +1,9 @@
 #!perl
 use strict;
-use warnings;
 
 use lib 't/lib';
 
-use Test::More 'no_plan';
+use Test::More tests => 3;
 
 BEGIN { use_ok('Email::Send', ()); }
 
