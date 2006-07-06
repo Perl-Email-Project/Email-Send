@@ -19,11 +19,10 @@ sub _find_sendmail {
     my $class = shift;
     return $SENDMAIL if defined $SENDMAIL;
 
-    my @path = split /:/, $ENV{PATH};
     my $sendmail;
-    for (@path) {
-        if ( -x "$_/sendmail" ) {
-            $sendmail = "$_/sendmail";
+    for my $dir (File::Spec->path) {
+        if ( -x "$dir/sendmail" ) {
+            $sendmail = "$dir/sendmail";
             last;
         }
     }

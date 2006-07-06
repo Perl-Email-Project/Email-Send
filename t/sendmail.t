@@ -38,6 +38,7 @@ SKIP:
       && ! -x '/usr/bin/sendmail';
 
   local $ENV{PATH} = '/usr/bin:/usr/sbin';
+  $ENV{PATH} =~ tr/:/;/ if $^O =~ /Win/;
   my $path = Email::Send::Sendmail->_find_sendmail;
   is( $path, '/usr/sbin/sendmail', 'found sendmail in /usr/sbin' );
 }
