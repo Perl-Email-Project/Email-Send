@@ -4,6 +4,7 @@
   - plan all tests
   - remove use warnings
   - undef is never a valid message
+  - improve testing
 
 2.11    2006-07-05
 
