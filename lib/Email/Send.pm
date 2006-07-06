@@ -130,6 +130,7 @@ C<message_modifier>.
 sub send {
     goto &_send_function unless eval { $_[0]->isa('Email::Send') };
     my ($self, $message, @args) = @_;
+
     my $simple = $self->_objectify_message($message);
     return failure "No message found." unless $simple;
 
