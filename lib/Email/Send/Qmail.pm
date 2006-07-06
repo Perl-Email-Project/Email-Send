@@ -1,14 +1,21 @@
 package Email::Send::Qmail;
 use strict;
 
-use vars qw[$QMAIL $VERSION];
-$QMAIL   ||= q[qmail-inject];
-
 use File::Spec ();
 use Return::Value;
 use Symbol qw(gensym);
 
+use vars qw[$QMAIL $VERSION];
+$QMAIL   ||= q[qmail-inject];
 $VERSION   = '2.12';
+
+sub is_available {
+    my $class = shift;
+
+
+    return failure "No qmail found" unless $class->_find_qmail;
+    return success;
+}
 
 sub _find_qmail {
     my $class = shift;
@@ -21,12 +28,6 @@ sub _find_qmail {
         }
     }
     return $sendmail;
-}
-
-sub is_available {
-    my $class = shift;
-    return failure "No qmail found" unless $class->_find_qmail;
-    return success;
 }
 
 sub send {
