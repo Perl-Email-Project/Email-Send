@@ -1,3 +1,7 @@
+2.??    ????-??-??
+
+  - added simple test for message modifier (response to bug from ABH)
+
 2.11    2006-07-05
 
   - fixed bug introduced in 2.10; message modifiers were broken

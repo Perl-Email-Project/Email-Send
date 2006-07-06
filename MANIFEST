@@ -15,6 +15,7 @@ t/classic.t
 t/email-send-test.t
 t/email-send.t
 t/foreign-mailer.t
+t/modifier.t
 t/no-import.t
 t/object-mailer.t
 t/sendmail.t
