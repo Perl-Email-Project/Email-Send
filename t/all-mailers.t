@@ -1,4 +1,4 @@
-use Test::More tests => 5;
+use Test::More tests => 9;
 use strict;
 $^W = 1;
 
@@ -32,3 +32,33 @@ ok(
   ! grep({ $_ eq 'Email::Send::Unavail' } @mailer_pkgs),
   "the unavailable (t/lib) sender isn't available",
 );
+
+my $message = <<'END_MESSAGE';
+From: rjbs@whitehouse.gov
+To: hdp@kremlin.su
+Subject: this wall
+
+Tear it down.
+END_MESSAGE
+
+{ 
+  # This will let us use try_all without actually trying all.
+  $sender->{_plugin_list} = { Test => 'Email::Send::Test' };
+
+  my $rv = $sender->send($message);
+  ok($rv, "we can send a message via 'try all mailers' method");
+  is(
+    Email::Send::Test->emails,
+    1,
+    "and it's sent to the (only) mailer available",
+  );
+}
+
+{ 
+  # This will let us use try_all without actually trying all.
+  $sender->{_plugin_list} = { Test => 'Email::Send::Fail' };
+
+  my $rv = $sender->send($message);
+  ok(!$rv, "we couldn't send when the only choice fails");
+  like("$rv", qr/unable to send/i, "and we got the expected error message");
+}
