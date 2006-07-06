@@ -11,9 +11,11 @@ Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
+t/all-mailers.t
 t/classic.t
 t/email-send-test.t
 t/email-send.t
+t/errors.t
 t/foreign-mailer.t
 t/modifier.t
 t/no-import.t
@@ -21,6 +23,7 @@ t/object-mailer.t
 t/sendmail.t
 t/test.t
 t/lib/Email/Send/OK.pm
+t/lib/Email/Send/Unavail.pm
 t/lib/OKMailer.pm
 t/lib/OKMailerOO.pm
 util/executable
