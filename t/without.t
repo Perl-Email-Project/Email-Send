@@ -17,7 +17,7 @@ BEGIN { use_ok('Email::Send', 'Test'); }
 
 { # unknown message type
   my $message = bless \(my $x = 0), "Mail::Ain't::Known";
-  my $rv = send($message);
+  my $rv = send(Test => $message);
   ok(!$rv, "sending with unknown message class is false");
 
   # I don't like this error.  We found something, we just don't know what.
