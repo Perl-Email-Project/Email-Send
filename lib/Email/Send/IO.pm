@@ -17,7 +17,7 @@ sub is_available {
 
 sub send {
     my ($class, $message, @args) = @_;
-    eval { require IO::All;IO::All->import };
+    eval { require IO::All; IO::All->import };
     return failure "send: Loading IO::All failed: $@" if $@;
     @args = (@IO) unless @args;
     eval {io(@args)->print($message->as_string)};
