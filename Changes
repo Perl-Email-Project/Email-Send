@@ -2,6 +2,7 @@
 
   - added simple test for message modifier (response to bug from ABH)
   - use File::Spec->path for path, not ENV{PATH} (bug 20109, Simon Flack)
+  - use Symbol.pm, not global filehandles
   - plan all tests
   - remove use warnings
   - undef is never a valid message
