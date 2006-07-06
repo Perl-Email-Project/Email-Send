@@ -99,10 +99,10 @@ sub new {
     my ($class, $args) = @_;
     $args->{mailer_args} ||= [];
     my %plugins = map {
-	                   my ($short_name) = /^Email::Send::(.+)/;
-		               ($short_name, $_);
-		              } $class->plugins;
-	$args->{_plugin_list} = \%plugins;
+        my ($short_name) = /^Email::Send::(.+)/;
+        ($short_name, $_);
+    } $class->plugins;
+    $args->{_plugin_list} = \%plugins;
     return $class->SUPER::new($args);
 }
 __PACKAGE__->mk_accessors(qw[mailer mailer_args message_modifier _plugin_list]);
@@ -128,21 +128,21 @@ C<message_modifier>.
 =cut
 
 sub send {
-  goto &_send_function unless eval { $_[0]->isa('Email::Send') };
-  my ($self, $message, @args) = @_;
-  my $simple = $self->_objectify_message($message);
-  return failure "No message found." unless $simple;
+    goto &_send_function unless eval { $_[0]->isa('Email::Send') };
+    my ($self, $message, @args) = @_;
+    my $simple = $self->_objectify_message($message);
+    return failure "No message found." unless $simple;
 
-	$self->message_modifier->(
-		$self, $simple,
-		@args,
-	) if $self->message_modifier;
+    $self->message_modifier->(
+        $self, $simple,
+        @args,
+    ) if $self->message_modifier;
 
-	if ( $self->mailer ) {
-		return $self->_send_it($self->mailer, $simple);
-	}
+    if ( $self->mailer ) {
+        return $self->_send_it($self->mailer, $simple);
+    }
 
-	return $self->_try_all($simple);
+    return $self->_try_all($simple);
 }
 
 =item all_mailers()
@@ -155,12 +155,12 @@ installed on your computer and register themselves as available.
 =cut
 
 sub all_mailers {
-	my ($self) = @_;
-	my @mailers;
-	for ( keys %{$self->_plugin_list} ) {
-		push @mailers, $_ if $self->mailer_available($_);
-	}
-	return @mailers;
+    my ($self) = @_;
+    my @mailers;
+    for ( keys %{$self->_plugin_list} ) {
+        push @mailers, $_ if $self->mailer_available($_);
+    }
+    return @mailers;
 }
 
 =item mailer_available()
@@ -247,9 +247,9 @@ sub import {
 sub _send_function {
     my ($mailer, $message, @args) = @_;
     __PACKAGE__->new({
-    	mailer => $mailer,
-    	mailer_args => \@args,
-	})->send($message);
+        mailer => $mailer,
+        mailer_args => \@args,
+    })->send($message);
 }
 
 1;
@@ -292,22 +292,22 @@ Here's an example of a mailer that sends email to a URL.
   use Return::Value;
   
   sub is_available {
-	  eval { use LWP::UserAgent }
+      eval { use LWP::UserAgent }
   }
 
   sub send {
       my ($class, $message, @args);
 
-	  use LWP::UserAgent;
+      require LWP::UserAgent;
 
       if ( @args ) {
           my ($URL, $FIELD) = @args;
           $AGENT = LWP::UserAgent->new;
       }
       return failure "Can't send to URL if no URL and field are named"
-        unless $URL && $FIELD;
+          unless $URL && $FIELD;
       $AGENT->post($URL => { $FIELD => $message->as_string });
-	  return success;
+      return success;
   }
 
   1;
