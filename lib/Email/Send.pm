@@ -195,6 +195,7 @@ sub mailer_available {
 sub _objectify_message {
     my ($self, $message) = @_;
 
+    return undef unless defined $message;
     return $message if UNIVERSAL::isa($message, 'Email::Simple');
     return Email::Simple->new($message) unless ref($message);
     return Email::Abstract->cast($message => 'Email::Simple')
@@ -228,12 +229,12 @@ sub _send_it {
 }
 
 sub _try_all {
-	my ($self, $simple) = @_;
-	foreach ( $self->all_mailers ) {
-		my $sent = $self->_send_it($_, $simple);
-		return $sent if $sent;
-	}
-	return failure "Unable to send message.";
+    my ($self, $simple) = @_;
+    foreach ( $self->all_mailers ) {
+      my $sent = $self->_send_it($_, $simple);
+      return $sent if $sent;
+    }
+    return failure "Unable to send message.";
 }
 
 # Classic Interface.

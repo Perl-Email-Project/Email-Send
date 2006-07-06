@@ -1,6 +1,9 @@
 2.??    ????-??-??
 
   - added simple test for message modifier (response to bug from ABH)
+  - plan all tests
+  - remove use warnings
+  - undef is never a valid message
 
 2.11    2006-07-05
 

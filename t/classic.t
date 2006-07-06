@@ -1,4 +1,4 @@
-use Test::More test => 3;
+use Test::More tests => 3;
 use strict;
 $^W =1;
 
