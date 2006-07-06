@@ -1,18 +1,21 @@
 package Email::Send::Sendmail;
-# $Id: Sendmail.pm,v 1.7 2006/01/28 23:02:44 cwest Exp $
 use strict;
 
+use File::Spec ();
 use Return::Value;
+use Symbol qw(gensym);
 
 use vars qw[$SENDMAIL $VERSION];
 
-$VERSION   = '2.04';
+$VERSION   = '2.12';
 
 sub is_available {
     my $class = shift;
-    my $status = '';
-       $status = "No Sendmail found" unless $class->_find_sendmail;
-    return success $status;
+
+    # This is RIDICULOUS.  Why do we say it's available if it isn't?
+    # -- rjbs, 2006-07-06
+    return success "No Sendmail found" unless $class->_find_sendmail;
+    return success '';
 }
 
 sub _find_sendmail {
@@ -32,13 +35,18 @@ sub _find_sendmail {
 sub send {
     my ($class, $message, @args) = @_;
     my $mailer = $class->_find_sendmail;
+
     return failure "Found $mailer but cannot execute it"
         unless -x $mailer;
-    open SENDMAIL, "| $mailer -t -oi @args"
+    
+    my $pipe = gensym;
+
+    open $pipe, "| $mailer -t -oi @args"
         or return failure "Error executing $mailer: $!";
-    print SENDMAIL $message->as_string
+    print $pipe $message->as_string
         or return failure "Error printing via pipe to $mailer: $!";
-    close SENDMAIL;
+    close $pipe
+        or return failure "error when closing pipe to $mailer: $!";
     return success;
 }
 

@@ -1,6 +1,7 @@
 2.??    ????-??-??
 
   - added simple test for message modifier (response to bug from ABH)
+  - use File::Spec->path for path, not ENV{PATH} (bug 20109, Simon Flack)
   - plan all tests
   - remove use warnings
   - undef is never a valid message

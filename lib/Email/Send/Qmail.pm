@@ -1,25 +1,48 @@
 package Email::Send::Qmail;
-# $Id: Qmail.pm,v 1.6 2006/01/28 23:02:44 cwest Exp $
 use strict;
 
 use vars qw[$QMAIL $VERSION];
 $QMAIL   ||= q[qmail-inject];
 
+use File::Spec ();
 use Return::Value;
+use Symbol qw(gensym);
 
-$VERSION   = '2.04';
+$VERSION   = '2.12';
+
+sub _find_qmail {
+    my $class = shift;
+
+    my $sendmail;
+    for my $dir (File::Spec->path) {
+        if ( -x "$dir/$QMAIL" ) {
+            $sendmail = "$dir/$QMAIL";
+            last;
+        }
+    }
+    return $sendmail;
+}
 
 sub is_available {
-    return   `which $QMAIL`
-           ? success
-           : failure;
+    my $class = shift;
+    return failure "No qmail found" unless $class->_find_qmail;
+    return success;
 }
 
 sub send {
     my ($class, $message, @args) = @_;
-    open QMAIL, "| $QMAIL @args" or return failure;
-    print QMAIL $message->as_string;
-    close QMAIL;
+
+    my $pipe = gensym;
+
+    open $pipe, "| $QMAIL @args"
+        or return failure "couldn't open pipe to qmail";
+
+    print $pipe $message->as_string
+        or return failure "couldn't send message to qmail";
+
+    close $pipe
+        or return failure "error when closing pipe to qmail";
+
     return success;
 }
 

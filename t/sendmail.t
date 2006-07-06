@@ -107,12 +107,13 @@ SKIP:
   my $return = $sender->send($email);
   ok( $return, 'send() succeeded with executable sendmail in path' );
 
-  unless ( -f 'sendmail.log' ) {
-      fail( 'sendmail did not write sendmail.log' );
-      last SKIP;
+  if ( -f 'sendmail.log' ) {
+    open my $fh, '<sendmail.log'
+        or die "Cannot read sendmail.log: $!";
+    my $log = join '', <$fh>;
+    like( $log, qr/From: Casey West/, 'log contains From header' );
+  } else {
+    fail( 'cannot check sendmail log contents'  );
+    last SKIP;
   }
-  open my $fh, '<sendmail.log'
-      or die "Cannot read sendmail.log: $!";
-  my $log = join '', <$fh>;
-  like( $log, qr/From: Casey West/, 'log contains From header' );
 }
