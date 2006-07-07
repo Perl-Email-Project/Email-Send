@@ -1,5 +1,4 @@
 package Email::Send::SMTP;
-# $Id: SMTP.pm,v 1.13 2006/04/20 15:39:06 cwest Exp $
 use strict;
 
 use vars qw[$SMTP $VERSION];

@@ -1,5 +1,4 @@
 package Email::Send::NNTP;
-# $Id: NNTP.pm,v 1.6 2006/04/20 15:39:06 cwest Exp $
 use strict;
 
 use vars qw[$NNTP $VERSION];

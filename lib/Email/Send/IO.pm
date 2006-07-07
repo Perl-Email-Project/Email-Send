@@ -4,7 +4,7 @@ use strict;
 use Return::Value;
 
 use vars qw[$VERSION];
-$VERSION   = '2.04';
+$VERSION   = '2.15';
 
 use vars qw[@IO];
 @IO      = ('=') unless @IO;
