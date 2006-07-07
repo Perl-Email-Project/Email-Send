@@ -80,7 +80,9 @@ L<perl>.
 
 =head1 AUTHOR
 
-Casey West, <F<casey@geeknest.com>>.
+Current maintainer: Ricardo SIGNES, <F<rjbs@cpan.org>>.
+
+Original author: Casey West, <F<casey@geeknest.com>>.
 
 =head1 COPYRIGHT
 
