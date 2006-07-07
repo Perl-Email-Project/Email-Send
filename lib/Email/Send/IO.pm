@@ -20,7 +20,7 @@ sub send {
     eval { require IO::All; IO::All->import };
     return failure "send: Loading IO::All failed: $@" if $@;
     @args = (@IO) unless @args;
-    eval {io(@args)->print($message->as_string)};
+    eval {io(@args)->append($message->as_string)};
     return failure $@ if $@;
     return success;
 }
