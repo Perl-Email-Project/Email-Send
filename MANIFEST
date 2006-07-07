@@ -18,6 +18,8 @@ t/email-send-test.t
 t/email-send.t
 t/errors.t
 t/foreign-mailer.t
+t/io.t
+t/lib/BadMailer.pm
 t/lib/Email/Send/Fail.pm
 t/lib/Email/Send/OK.pm
 t/lib/Email/Send/Unavail.pm
@@ -26,8 +28,11 @@ t/lib/OKMailerOO.pm
 t/modifier.t
 t/no-import.t
 t/object-mailer.t
+t/pod-coverage.t
+t/pod.t
 t/sendmail.t
 t/test.t
+t/without.t
 util/executable
 util/not-executable
 util/sendmail
