@@ -1,4 +1,4 @@
-2.??    ????-??-??
+2.15    2006-07-06
 
   - added simple test for message modifier (response to bug from ABH)
   - use File::Spec->path for path, not ENV{PATH} (bug 20109, Simon Flack)
