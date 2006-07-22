@@ -24,6 +24,7 @@ END_MESSAGE
 
 my (undef, $filename) = tempfile(CLEANUP => 1);
 
+{ my @no_warning_please = @Email::Send::IO::IO; }
 @Email::Send::IO::IO = ($filename);
 
 my $sender = Email::Send->new({ mailer => 'IO' });
