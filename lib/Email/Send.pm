@@ -2,7 +2,7 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.15';
+$VERSION   = '2.16';
 
 use base qw[Class::Accessor::Fast];
 use Email::Simple;

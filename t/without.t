@@ -8,7 +8,7 @@ BEGIN {
 
   plan tests => 3;
 
-  use Test::Without::Module qw(Email::Abstract);
+  Test::Without::Module->import(qw(Email::Abstract));
 }
 
 use lib 't/lib';
