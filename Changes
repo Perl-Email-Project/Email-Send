@@ -1,3 +1,7 @@
+2.17
+
+  - fix typo in POD (thanks J. Cheetham!)
+
 2.16    2006-07-24
 
   - the without.t test no longer breaks if Test::Without::Module isn't there
