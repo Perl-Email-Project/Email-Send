@@ -1,5 +1,6 @@
-2.17
+2.17    2006-07-28
 
+  - skip tests for optional functionality (bug 20740, eloy)
   - fix typo in POD (thanks J. Cheetham!)
 
 2.16    2006-07-24
