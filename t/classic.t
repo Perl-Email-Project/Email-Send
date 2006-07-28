@@ -8,8 +8,9 @@ BEGIN {
 
 use Email::Simple;
 
-if ( eval "require IO::All" ) {
-    {
+SKIP: {
+  skip "IO::All required for these tests", 2 unless eval "require IO::All";
+  {
         my $message = Email::Simple->new(<<'__MESSAGE__');
 To: me@myhost.com
 From: you@yourhost.com
