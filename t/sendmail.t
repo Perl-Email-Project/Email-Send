@@ -83,9 +83,9 @@ SKIP:
 
 SKIP:
 {
-  skip 'Cannot run this test unless current perl is -x', 1 unless -x $^X;
+  skip 'Cannot run this test unless current perl is -x', 2 unless -x $^X;
 
-  skip 'Cannot run this test without File::Temp', 1 unless $has_FileTemp;
+  skip 'Cannot run this test without File::Temp', 2 unless $has_FileTemp;
   my $tempdir = File::Temp::tempdir();
 
   require File::Spec;
@@ -93,12 +93,12 @@ SKIP:
   my $error = "can't prepare executable test script";
 
   my $filename = File::Spec->catfile($tempdir, "sendmail");
-  open my $sendmail_fh, ">", $filename or skip $error, 1;
-  open my $template_fh, "<", './util/sendmail' or skip $error, 1;
+  open my $sendmail_fh, ">", $filename or skip $error, 2;
+  open my $template_fh, "<", './util/sendmail' or skip $error, 2;
 
-  print {$sendmail_fh} "#!$^X\n"      or skip $error, 1;
-  print {$sendmail_fh} <$template_fh> or skip $error, 1;
-  close $sendmail_fh                  or skip $error, 1;
+  print {$sendmail_fh} "#!$^X\n"      or skip $error, 2;
+  print {$sendmail_fh} <$template_fh> or skip $error, 2;
+  close $sendmail_fh                  or skip $error, 2;
 
   chmod 0755, $filename;
 
@@ -114,6 +114,5 @@ SKIP:
     like( $log, qr/From: Casey West/, 'log contains From header' );
   } else {
     fail( 'cannot check sendmail log contents'  );
-    last SKIP;
   }
 }

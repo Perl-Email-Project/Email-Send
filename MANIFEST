@@ -27,6 +27,8 @@ t/lib/OKMailer.pm
 t/lib/OKMailerOO.pm
 t/modifier.t
 t/no-import.t
+t/no/Email-Abstract/Email/Abstract.pm
+t/no/IO-All/IO/All.pm
 t/object-mailer.t
 t/pod-coverage.t
 t/pod.t

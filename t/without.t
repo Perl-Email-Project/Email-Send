@@ -1,17 +1,9 @@
-use Test::More;
+use Test::More tests => 3;;
 use strict;
 $^W = 1;
 
-BEGIN { 
-  plan skip_all => "these tests require Test::Without::Module"
-    unless eval "require Test::Without::Module; 1";
-
-  plan tests => 3;
-
-  Test::Without::Module->import(qw(Email::Abstract));
-}
-
 use lib 't/lib';
+use lib 't/no/Email-Abstract';
 
 BEGIN { use_ok('Email::Send', 'Test'); }
 

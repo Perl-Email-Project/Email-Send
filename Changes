@@ -1,3 +1,7 @@
+2.171   2006-07-29
+
+  - improve tests, especially when used with Test::Without::Module
+
 2.17    2006-07-28
 
   - skip tests for optional functionality (bug 20740, eloy)

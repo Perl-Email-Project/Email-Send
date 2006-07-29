@@ -6,7 +6,7 @@ BEGIN { use_ok('Email::Send', 'Test'); }
 require Email::Send::Test;
 
 plan skip_all => "Email::Abstract required for these tests"
-  unless eval "require Email::Abstract";
+  unless eval "use Email::Abstract; 1";
 
 my $tests = 3;
 

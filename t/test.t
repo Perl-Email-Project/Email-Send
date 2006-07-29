@@ -8,9 +8,35 @@ BEGIN {
 
 use Email::Simple;
 
-if ( eval "require IO::All" ) {
-    {
-        my $message = Email::Simple->new(<<'__MESSAGE__');
+SKIP: {
+  skip "IO::All required for these tests", 2 unless eval "use IO::All; 1;";
+  {
+    my $message = Email::Simple->new(<<'__MESSAGE__');
+To: me@myhost.com
+From: you@yourhost.com
+Subject: Test
+    
+Testing this thing out.
+__MESSAGE__
+    unlink 'testfile'; # just in case
+
+    Email::Send->new({mailer => 'IO', mailer_args => ['testfile']})
+               ->send($message);
+
+    my $test = do {
+      local $/;
+      open T, 'testfile' or die "couldn't open testfile: $!";
+      <T>
+    };
+
+    my $test_message = Email::Simple->new($test);
+
+    is $test_message->as_string, $message->as_string, 'sent properly';
+
+    unlink 'testfile';
+  }
+  {
+    my $message = Email::Simple->new(<<'__MESSAGE__');
 To: me@myhost.com
 From: you@yourhost.com
 Subject: Test
@@ -18,37 +44,17 @@ Subject: Test
 Testing this thing out.
 __MESSAGE__
     
-        Email::Send->new({mailer => 'IO', mailer_args => ['testfile']})
-                   ->send($message);
+    my $message_text = $message->as_string;
     
-        my $test = do { local $/; open T, 'testfile'; <T> };
+    Email::Send->new({mailer => 'IO', mailer_args => ['testfile']})
+               ->send($message_text);
+
+    my $test = do { local $/; open T, 'testfile'; <T> };
+
+    my $test_message = Email::Simple->new($test);
     
-        my $test_message = Email::Simple->new($test);
-    
-        is $test_message->as_string, $message->as_string, 'sent properly';
-    
-        unlink 'testfile';
-    }
-    {
-        my $message = Email::Simple->new(<<'__MESSAGE__');
-To: me@myhost.com
-From: you@yourhost.com
-Subject: Test
-    
-Testing this thing out.
-__MESSAGE__
-    
-        my $message_text = $message->as_string;
-        
-        Email::Send->new({mailer => 'IO', mailer_args => ['testfile']})
-                   ->send($message_text);
-    
-        my $test = do { local $/; open T, 'testfile'; <T> };
-    
-        my $test_message = Email::Simple->new($test);
-    
-        is $test_message->as_string, $message->as_string, 'sent properly';
-    
-        unlink 'testfile';
-    }
+    is $test_message->as_string, $message->as_string, 'sent properly';
+
+    unlink 'testfile';
+  }
 }
