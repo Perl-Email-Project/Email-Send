@@ -1,6 +1,6 @@
 2.171   2006-07-29
 
-  - improve tests, especially when used with Test::Without::Module
+  - improve tests and contents, giving up on Test::Without::Module
 
 2.17    2006-07-28
 

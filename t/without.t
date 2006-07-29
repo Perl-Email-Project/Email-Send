@@ -1,11 +1,17 @@
-use Test::More tests => 3;;
+use Test::More;;
 use strict;
 $^W = 1;
 
 use lib 't/lib';
-use lib 't/no/Email-Abstract';
 
-BEGIN { use_ok('Email::Send', 'Test'); }
+BEGIN {
+  plan skip_all => "see t/lib/Without.pm for prereqs for these tests"
+    unless eval "use Without 'Email::Abstract'; 1;";
+
+  plan tests => 3;
+
+  use_ok('Email::Send', 'Test');
+}
 
 { # unknown message type
   my $message = bless \(my $x = 0), "Mail::Ain't::Known";

@@ -5,12 +5,12 @@ WriteMakefile (
   ABSTRACT      => "Simply Sending Email",
   NAME          => 'Email::Send',
   PREREQ_PM     => {
-    'Class::Accessor::Fast' => '0.19',
-    'Email::Address'    => '1.80',
-    'Email::Simple'     => '1.92',
+    'Class::Accessor::Fast' => '0.18', # cope with broken 5.6.0 base.pm
+    'Email::Address'    => '1.80', # avoid many 'could hand on bad addr' bugs
+    'Email::Simple'     => '1.92', # previous versions have prereq problems
     'File::Spec'        =>      0, # min ver unknown; core in 5.005
     'Module::Pluggable' => '2.97', # topic safety
-    'Return::Value'     => '1.28',
+    'Return::Value'     => '1.28', # avoid num/bool explosions on 5.6.1
     'Scalar::Util'      => '1.02', # reason unknown;  core in 5.7.3
     'Symbol'            => '0.00', # min ver unknown; core in 5.002
     'Test::More'        => '0.47', # reason unknown;  core in 5.8.1
