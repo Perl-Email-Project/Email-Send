@@ -1,3 +1,7 @@
+2.180   2006-08-23
+
+  - add support for TLS SMTP, based on a patch by Fayland Lam
+
 2.171   2006-07-29
 
   - improve tests and contents, giving up on Test::Without::Module

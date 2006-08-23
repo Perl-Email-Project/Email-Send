@@ -5,13 +5,14 @@ use vars qw[$SMTP $VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION   = '2.04';
+$VERSION   = '2.180';
 
 sub is_available {
     my ($class, %args) = @_;
     my $success = 1;
     $success = eval { require Net::SMTP };
     $success = eval { require Net::SMTP::SSL } if $args{ssl};
+    $success = eval { require Net::SMTP::TLS } if $args{tls};
     return   $success
            ? success
            : failure $@;
@@ -31,16 +32,14 @@ sub send {
         }
 
         my $host = delete($args{Host}) || 'localhost';
-        if ( $args{ssl} ) {
-            require Net::SMTP::SSL;
-            $SMTP->quit if $SMTP;
-            $SMTP = Net::SMTP::SSL->new($host, %args);
-            return failure "Couldn't connect to $host" unless $SMTP;
-        } else {
-            $SMTP->quit if $SMTP;
-            $SMTP = Net::SMTP->new($host, %args);
-            return failure "Couldn't connect to $host" unless $SMTP;
-        }
+
+        my $smtp_class = $args{ssl} ? 'Net::SMTP::SSL'
+                       : $args{tls} ? 'Net::SMTP::TLS'
+                       :              'Net::SMTP';
+
+        $SMTP->quit if $SMTP;
+        $SMTP = $smtp_class->new($host, %args);
+        return failure "Couldn't connect to $host" unless $SMTP;
         
         my ($user, $pass)
           = @args{qw[username password]};
@@ -55,30 +54,36 @@ sub send {
     eval {
         my $from =
           (Email::Address->parse($message->header('From')))[0]->address;
-        $SMTP->mail($from) or return failure "FROM: <$from> denied";
 
-        @to = map {
-                   map { $_->address }
-                       Email::Address->parse($message->header($_))
-                  } qw[To Cc Bcc];
-        my @ok = $SMTP->to(@to, { SkipBad => 1 });
+        # ::TLS has no useful return value, but will croak on failure.
+        eval { $SMTP->mail($from) } or return failure "FROM: <$from> denied";
 
-        if ( @to != @ok ) {
-            my %to; @to{@to} = (1) x @to;
-            delete @to{@ok};
-            @bad = keys %to;
+        for my $header (qw(To Cc Bcc)) {
+          push @to,
+            map { $_->address }
+            Email::Address->parse($message->header($header));
         }
+
+        if (eval { $SMTP->isa('Net::SMTP::TLS') }) {
+          $SMTP->to(@to);
+        } else {
+          my @ok = $SMTP->to(@to, { SkipBad => 1 });
+
+          if ( @to != @ok ) {
+              my %to; @to{@to} = (1) x @to;
+              delete @to{@ok};
+              @bad = keys %to;
+          }
+        }
+ 
+        return failure "No valid recipients" if @bad == @to;
     };
+
     return failure $@ if $@;
 
-    return failure "No valid recipients" if @bad == @to;
+    return failure "Can't send data" unless $SMTP->data( $message->as_string );
 
-    return failure "Can't send data"
-      unless $SMTP->data( $message->as_string );
-
-    return success "Message sent", prop => {
-        bad => [ @bad ],
-    };
+    return success "Message sent", prop => { bad => [ @bad ], };
 }
 
 sub DESTROY {
