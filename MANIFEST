@@ -37,3 +37,4 @@ t/without.t
 util/executable
 util/not-executable
 util/sendmail
+LICENSE
