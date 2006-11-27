@@ -9,7 +9,6 @@ lib/Email/Send/SMTP.pm
 lib/Email/Send/Test.pm
 Makefile.PL
 MANIFEST			This list of files
-META.yml
 README
 t/abstract-msg.t
 t/all-mailers.t
