@@ -7,7 +7,6 @@ WriteMakefile (
   NAME          => 'Email::Send',
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM     => {
-    'Class::Accessor::Fast' => '0.18', # cope with broken 5.6.0 base.pm
     'Email::Address'        => '1.80', # avoid many 'returns bad addr' bugs
     'Email::Simple'         => '1.92', # previous versions have prereq problems
     'File::Spec'            =>      0, # min ver unknown; core in 5.005

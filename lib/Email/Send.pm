@@ -2,9 +2,8 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.180';
+$VERSION   = '2.181';
 
-use base qw[Class::Accessor::Fast];
 use Email::Simple;
 use Module::Pluggable search_path => 'Email::Send';
 use Return::Value;
@@ -103,9 +102,21 @@ sub new {
         ($short_name, $_);
     } $class->plugins;
     $args->{_plugin_list} = \%plugins;
-    return $class->SUPER::new($args);
+    return bless $args => $class;
 }
-__PACKAGE__->mk_accessors(qw[mailer mailer_args message_modifier _plugin_list]);
+
+BEGIN {
+  for my $field (qw(mailer mailer_args message_modifier _plugin_list)) {
+    my $code = sub {
+      return $_[0]->{$field} unless @_ > 1;
+      my $self = shift;
+      $self->{$field} = (@_ == 1 ? $_[0] : [@_]);
+    };
+
+    no strict 'refs';
+    *$field = $code;
+  }
+}
 
 =head2 Methods
 

@@ -1,3 +1,6 @@
+2.181   2006-11-25
+  - remove dependency on Class::Accessor::Fast, which broke its $VERSION
+
 2.180   2006-08-23
 
   - add support for TLS SMTP, based on a patch by Fayland Lam
