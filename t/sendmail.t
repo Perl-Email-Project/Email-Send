@@ -56,6 +56,7 @@ my $has_FileTemp = eval { require File::Temp; };
 SKIP:
 {
   skip 'Cannot run this test unless current perl is -x', 1 unless -x $^X;
+ skip 'Win32 does not understand shebang', 1 if $^O eq 'MSWin32';
 
   skip 'Cannot run this test without File::Temp', 1 unless $has_FileTemp;
   my $tempdir = File::Temp::tempdir();
@@ -84,6 +85,7 @@ SKIP:
 SKIP:
 {
   skip 'Cannot run this test unless current perl is -x', 2 unless -x $^X;
+  skip 'Win32 does not understand shebang', 1 if $^O eq 'MSWin32';
 
   skip 'Cannot run this test without File::Temp', 2 unless $has_FileTemp;
   my $tempdir = File::Temp::tempdir();

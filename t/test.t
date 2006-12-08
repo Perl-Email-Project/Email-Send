@@ -1,6 +1,6 @@
 use Test::More tests => 3;
 use strict;
-$^W =1;
+$^W = 1;
 
 BEGIN {
   use_ok 'Email::Send';
