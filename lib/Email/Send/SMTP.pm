@@ -5,7 +5,7 @@ use vars qw[$SMTP $VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION   = '2.180';
+$VERSION   = '2.182';
 
 sub is_available {
     my ($class, %args) = @_;
@@ -16,6 +16,24 @@ sub is_available {
     return   $success
            ? success
            : failure $@;
+}
+
+sub _get_env_sender {
+  my ($class, $message) = @_;
+
+  my $from = (Email::Address->parse($message->header('From')))[0]->address;
+}
+
+sub _get_env_recipients {
+  my ($class, $message) = @_;
+
+  my @to;
+  for my $header (qw(To Cc Bcc)) {
+    push @to, map { $_->address }
+              Email::Address->parse($message->header($header));
+  }
+
+  return @to;
 }
 
 sub send {
@@ -50,19 +68,13 @@ sub send {
     }
     
     my @bad;
-    my @to;
     eval {
-        my $from =
-          (Email::Address->parse($message->header('From')))[0]->address;
+        my $from = $class->_get_env_sender($message);
 
         # ::TLS has no useful return value, but will croak on failure.
         eval { $SMTP->mail($from) } or return failure "FROM: <$from> denied";
 
-        for my $header (qw(To Cc Bcc)) {
-          push @to,
-            map { $_->address }
-            Email::Address->parse($message->header($header));
-        }
+        my @to = $class->_get_env_recipients($message);
 
         if (eval { $SMTP->isa('Net::SMTP::TLS') }) {
           $SMTP->to(@to);

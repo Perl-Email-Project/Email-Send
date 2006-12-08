@@ -1,10 +1,16 @@
-use Test::More tests => 3;
+use Test::More;
 use strict;
 $^W =1;
 
 BEGIN {
-  use_ok 'Email::Send';
+  if ($^O eq 'MSWin32') {
+    plan skip_all => "Patches welcome to better test Win32";
+  } else {
+    plan tests => 3;
+  }
 }
+
+BEGIN { use_ok 'Email::Send'; }
 
 use Email::Simple;
 

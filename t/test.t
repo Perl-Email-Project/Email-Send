@@ -28,6 +28,7 @@ __MESSAGE__
       open T, 'testfile' or die "couldn't open testfile: $!";
       <T>
     };
+    close T;
 
     my $test_message = Email::Simple->new($test);
 
@@ -50,6 +51,7 @@ __MESSAGE__
                ->send($message_text);
 
     my $test = do { local $/; open T, 'testfile'; <T> };
+    close T;
 
     my $test_message = Email::Simple->new($test);
     
