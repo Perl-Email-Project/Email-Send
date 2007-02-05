@@ -22,7 +22,7 @@ Subject: jfdi
 This is a test (message).
 END_MESSAGE
 
-my (undef, $filename) = tempfile(CLEANUP => 1);
+my (undef, $filename) = tempfile(DIR => 't', CLEANUP => 1);
 
 { my @no_warning_please = @Email::Send::IO::IO; }
 @Email::Send::IO::IO = ($filename);

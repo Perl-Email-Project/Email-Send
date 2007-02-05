@@ -9,7 +9,7 @@ use File::Temp ();
 use Symbol ();
 
 my $tempdir;
-BEGIN { $tempdir = File::Temp::tempdir(CLEANUP => 1); }
+BEGIN { $tempdir = File::Temp::tempdir(DIR => 't', CLEANUP => 1); }
 use lib $tempdir;
 
 sub import {

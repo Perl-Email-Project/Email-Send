@@ -59,7 +59,7 @@ SKIP:
   skip 'Win32 does not understand shebang', 1 if $^O eq 'MSWin32';
 
   skip 'Cannot run this test without File::Temp', 1 unless $has_FileTemp;
-  my $tempdir = File::Temp::tempdir();
+  my $tempdir = File::Temp::tempdir(DIR => 't', CLEANUP => 1);
 
   require File::Spec;
 
@@ -88,7 +88,7 @@ SKIP:
   skip 'Win32 does not understand shebang', 2 if $^O eq 'MSWin32';
 
   skip 'Cannot run this test without File::Temp', 2 unless $has_FileTemp;
-  my $tempdir = File::Temp::tempdir();
+  my $tempdir = File::Temp::tempdir(DIR => 't', CLEANUP => 1);
 
   require File::Spec;
 
