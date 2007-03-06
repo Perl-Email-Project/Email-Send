@@ -130,8 +130,9 @@ Send a message using the predetermined mailer and mailer arguments. If you
 have defined a C<message_modifier> it will be called prior to sending.
 
 The first argument you pass to send is an email message. It must be in some
-format that C<Email::Abstract> can understand. If you don't have C<Email::Abstract>
-installed then sending as plain text or an C<Email::Simple> object will do.
+format that C<Email::Abstract> can understand. If you don't have
+C<Email::Abstract> installed then sending as plain text or an C<Email::Simple>
+object will do.
 
 Any remaining arguments will be passed directly into your defined
 C<message_modifier>.
