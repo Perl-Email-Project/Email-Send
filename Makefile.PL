@@ -3,9 +3,8 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile (
   AUTHOR        => 'Casey West <casey@geeknest.com>',
-  ABSTRACT      => "Simply Sending Email",
   NAME          => 'Email::Send',
-  (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
+  ABSTRACT_FROM => 'lib/Email/Send.pm',
   PREREQ_PM     => {
     'Email::Address'        => '1.80', # avoid many 'returns bad addr' bugs
     'Email::Simple'         => '1.92', # previous versions have prereq problems
@@ -17,4 +16,5 @@ WriteMakefile (
     'Test::More'            => '0.47', # reason unknown;  core in 5.8.1
   },
   VERSION_FROM  => 'lib/Email/Send.pm',
+  (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
 );

@@ -2,7 +2,7 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.186';
+$VERSION   = '2.187';
 
 use Email::Simple;
 use Module::Pluggable search_path => 'Email::Send';
@@ -53,7 +53,7 @@ and simple, easy to use, and easy to extend.
 
 =over 4
 
-=item new()
+=item new
 
   my $sender = Email::Send->new({
       mailer      => 'NNTP',
@@ -74,7 +74,7 @@ are listed under L<"Properties">.
 
 The mailing system you'd like to use for sending messages with this object.
 This is not defined by default. If you don't specify a mailer, all available
-plugins will be tried when the C<send()> method is called until one succeeds.
+plugins will be tried when the C<send> method is called until one succeeds.
 
 =item mailer_args
 
@@ -82,10 +82,10 @@ Arguments passed into the mailing system you're using.
 
 =item message_modifier
 
-If defined, this callback is invoked every time the C<send()> method is called
+If defined, this callback is invoked every time the C<send> method is called
 on an object. The mailer object will be passed as the first argument. Second,
 the actual C<Email::Simple> object for a message will be passed. Finally, any
-additional arguments passed to C<send()> will be passed to this method in the
+additional arguments passed to C<send> will be passed to this method in the
 order they were recieved.
 
 This is useful if you are sending in bulk.
@@ -118,11 +118,11 @@ BEGIN {
   }
 }
 
-=head2 Methods
+=head2 METHODS
 
 =over 4
 
-=item send()
+=item send
 
   my $result = $sender->send($message, @modifier_args);
 
@@ -158,7 +158,7 @@ sub send {
     return $self->_try_all($simple);
 }
 
-=item all_mailers()
+=item all_mailers
 
   my @available = $sender->all_mailers;
 
@@ -176,7 +176,7 @@ sub all_mailers {
     return @mailers;
 }
 
-=item mailer_available()
+=item mailer_available
 
   # is SMTP over SSL avaialble?
   $sender->mailer('SMTP')
@@ -184,7 +184,7 @@ sub all_mailers {
 
 Given the name of a mailer, such as C<SMTP>, determine if it is
 available. Any additional arguments passed to this method are passed
-directly to the C<is_available()> method of the mailer being queried.
+directly to the C<is_available> method of the mailer being queried.
 
 =back
 
@@ -345,6 +345,12 @@ L<Email::Send::Qmail>,
 L<Email::Send::SMTP>,
 L<Email::Send::Sendmail>,
 L<perl>.
+
+=head1 PERL EMAIL PROJECT
+
+This module is maintained by the Perl Email Project.
+
+L<http://emailproject.perl.org/wiki/Email::Send>
 
 =head1 AUTHOR
 

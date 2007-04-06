@@ -1,7 +1,6 @@
 Changes
 eg/send-email.pl
 lib/Email/Send.pm
-lib/Email/Send/IO.pm
 lib/Email/Send/NNTP.pm
 lib/Email/Send/Qmail.pm
 lib/Email/Send/Sendmail.pm
@@ -17,7 +16,6 @@ t/email-send-test.t
 t/email-send.t
 t/errors.t
 t/foreign-mailer.t
-t/io.t
 t/lib/BadMailer.pm
 t/lib/Email/Send/Fail.pm
 t/lib/Email/Send/OK.pm
