@@ -2,7 +2,7 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.187';
+$VERSION   = '2.188';
 
 use Email::Simple;
 use Module::Pluggable search_path => 'Email::Send';

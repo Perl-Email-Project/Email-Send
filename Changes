@@ -1,3 +1,6 @@
+2.188     2007-06-19
+          added ->deliveries to Test mailer
+
 2.187     2007-04-05
           Email::Send::IO removed to Email-Send-IO distribution
 
