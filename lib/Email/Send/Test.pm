@@ -74,7 +74,7 @@ BEGIN {
 }
 
 # No longer allow direct access to the array
-my @EMAILS = ();
+my @DELIVERIES = ();
 
 # This mailer is always available
 sub is_available { 1 }
@@ -101,8 +101,9 @@ Always returns true.
 =cut
 
 sub send {
-	my $class = shift;
-	push @EMAILS, @_;
+  my ($self, $email, @rest) = @_;
+
+  push @DELIVERIES, [ $self, $email, \@rest ];
 	return 1;
 }
 
@@ -120,7 +121,8 @@ In scalar context, returns the number of items in the trap.
 =cut
 
 sub emails {
-	wantarray ? @EMAILS : scalar(@EMAILS);
+  return scalar @DELIVERIES unless wantarray;
+  return map { $_->[1] } @DELIVERIES;
 }
 
 =pod
@@ -138,8 +140,25 @@ Always returns true.
 =cut
 
 sub clear {
-	@EMAILS = ();
+	@DELIVERIES = ();
 	return 1;
+}
+
+=head2 deliveries
+
+This method returns a list of arrayrefs, one for each call to C<send> that has
+been made.  Each arrayref is in the form:
+
+  [ $mailer, $email, \@rest ]
+
+The first element is the invocant on which C<send> was called.  The second is
+the email that was given to C<send>.  The third is the rest of the arguments
+given to C<send>.
+
+=cut
+
+sub deliveries {
+  @DELIVERIES
 }
 
 1;
