@@ -1,4 +1,4 @@
-use Test::More tests => 20;
+use Test::More tests => 18;
 use strict;
 $^W = 1;
 
@@ -6,10 +6,10 @@ use_ok 'Email::Send';
 can_ok 'Email::Send', 'plugins', 'mailer_available', 'mailer',
                       'mailer_args', 'message_modifier', 'send', 'all_mailers';
 use_ok $_ 
-  for grep { /IO|NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
+  for grep { /NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
 
 can_ok $_, 'is_available', 'send'
-  for grep { /IO|NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
+  for grep { /NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
 
 my $mailer = Email::Send->new();
 isa_ok $mailer, 'Email::Send';
