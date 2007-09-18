@@ -1,3 +1,9 @@
+2.190     2007-09-18
+          fix bugs exposed by new Test::More
+
+2.189     2007-09-17
+          fix bugs exposed by new Test::More
+
 2.188     2007-06-19
           added ->deliveries to Test mailer
 
