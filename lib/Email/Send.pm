@@ -2,10 +2,12 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.188';
+$VERSION   = '2.192';
 
 use Email::Simple;
-use Module::Pluggable search_path => 'Email::Send';
+use Module::Pluggable
+  search_path => 'Email::Send',
+  except      => $Email::Send::__plugin_exclusion;
 use Return::Value;
 use Scalar::Util ();
 

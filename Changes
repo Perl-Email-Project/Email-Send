@@ -1,3 +1,17 @@
+2.192     2007-11-01
+          horrible hack to fix regrettable decision in use of Module::Pluggable
+            (see https://rt.cpan.org/Ticket/Display.html?id=30183)
+
+2.191     2007-10-21
+          use Test mailer, not IO::All, to test internal interfaces
+            (thanks, Andreas)
+
+2.190     2007-09-18
+          fix bugs exposed by new Test::More
+
+2.189     2007-09-17
+          fix bugs exposed by new Test::More
+
 2.188     2007-06-19
           added ->deliveries to Test mailer
 

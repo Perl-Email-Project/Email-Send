@@ -2,8 +2,8 @@ use Test::More;
 use strict;
 $^W = 1;
 
-BEGIN { use_ok('Email::Send', 'Test'); }
-require Email::Send::Test;
+use Email::Send::Test;
+use Email::Send 'Test';
 
 plan skip_all => "Email::Abstract required for these tests"
   unless eval "use Email::Abstract; 1";
