@@ -4,6 +4,8 @@ $^W = 1;
 
 use lib 't/lib';
 
+
+BEGIN { $Email::Send::__plugin_exclusion = qr/Jifty/ }
 BEGIN { use_ok('Email::Send', 'Test'); }
 
 my $sender  = Email::Send->new;
