@@ -25,7 +25,7 @@ Email::Send::Test - Captures emails sent via Email::Send for testing
   # matched what you expect.
   my @emails = Email::Send::Test->emails;
   is( scalar(@emails), 1, 'Sent 1 email' );
-  isa_ok( $emails[0], 'Email::MIME' );
+  isa_ok( $emails[0], 'Email::MIME' ); # Email::Simple subclasses pass through
 
 =head1 DESCRIPTION
 
