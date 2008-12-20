@@ -15,6 +15,15 @@ use Scalar::Util ();
 
 Email::Send - Simply Sending Email
 
+=head1 WAIT!  ACHTUNG!
+
+Email::Send is going away... well, not really going away, but it's being
+officially marked "out of favor."  It has API design problems that make it hard
+to usefully extend and rather than try to deprecate features and slowly ease in
+a new interface, we've released Email::SendB<er> which fixes these problems and
+others.  As of today, 2008-12-19, Email::Sender is young, but it's fairly
+well-tested.  Please consider using it instead for any new work.
+
 =head1 SYNOPSIS
 
   use Email::Send;
