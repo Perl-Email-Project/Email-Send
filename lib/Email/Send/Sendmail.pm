@@ -36,6 +36,10 @@ sub send {
     my ($class, $message, @args) = @_;
     my $mailer = $class->_find_sendmail;
 
+    return failure "Couldn't find 'sendmail' executable in your PATH"
+        ." and \$".__PACKAGE__."::SENDMAIL is not set"
+        unless $mailer;
+
     return failure "Found $mailer but cannot execute it"
         unless -x $mailer;
     
