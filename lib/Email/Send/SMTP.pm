@@ -5,7 +5,7 @@ use vars qw[$SMTP $VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION   = '2.182';
+$VERSION   = '2.193';
 
 sub is_available {
     my ($class, %args) = @_;

@@ -7,7 +7,7 @@ use Symbol qw(gensym);
 
 use vars qw[$QMAIL $VERSION];
 $QMAIL   ||= q[qmail-inject];
-$VERSION   = '2.15';
+$VERSION   = '2.193';
 
 sub is_available {
     my $class = shift;

@@ -1,3 +1,9 @@
+2.193     2008-12-19
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          long-overdue application of patch from RUZ to correct error from
+          Sendmail mailer (thanks, RUZ!)
+
 2.192     2007-11-01
           horrible hack to fix regrettable decision in use of Module::Pluggable
             (see https://rt.cpan.org/Ticket/Display.html?id=30183)
