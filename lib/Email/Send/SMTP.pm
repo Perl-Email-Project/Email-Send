@@ -1,11 +1,11 @@
 package Email::Send::SMTP;
 use strict;
 
-use vars qw[$SMTP $VERSION];
+use vars qw[$VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION   = '2.193';
+$VERSION = '2.193';
 
 sub is_available {
     my ($class, %args) = @_;
@@ -36,33 +36,31 @@ sub get_env_recipients {
 
 sub send {
     my ($class, $message, @args) = @_;
-    require Net::SMTP;
-    if ( @_ > 1 ) {
-        my %args;
-        if ( @args % 2 ) {
-            my $host = shift @args;
-            %args = @args;
-            $args{Host} = $host;
-        } else {
-            %args = @args;
-        }
 
-        my $host = delete($args{Host}) || 'localhost';
+    my %args;
+    if ( @args % 2 ) {
+        my $host = shift @args;
+        %args = @args;
+        $args{Host} = $host;
+    } else {
+        %args = @args;
+    }
 
-        my $smtp_class = $args{ssl} ? 'Net::SMTP::SSL'
-                       : $args{tls} ? 'Net::SMTP::TLS'
-                       :              'Net::SMTP';
+    my $host = delete($args{Host}) || 'localhost';
 
-        $SMTP->quit if $SMTP;
-        $SMTP = $smtp_class->new($host, %args);
-        return failure "Couldn't connect to $host" unless $SMTP;
-        
-        my ($user, $pass)
-          = @args{qw[username password]};
-        if ( $user ) {
-            $SMTP->auth($user, $pass)
-              or return failure "Couldn't authenticate '$user:...'";
-        }
+    my $smtp_class = $args{ssl} ? 'Net::SMTP::SSL'
+                   : $args{tls} ? 'Net::SMTP::TLS'
+                   :              'Net::SMTP';
+
+    eval "require $smtp_class; 1" or die;
+    my $SMTP = $smtp_class->new($host, %args);
+    return failure "Couldn't connect to $host" unless $SMTP;
+    
+    my ($user, $pass) = @args{qw[username password]};
+
+    if ( $user ) {
+        $SMTP->auth($user, $pass)
+          or return failure "Couldn't authenticate '$user:...'";
     }
     
     my @bad;
@@ -93,11 +91,8 @@ sub send {
 
     return failure "Can't send data" unless $SMTP->data( $message->as_string );
 
+    $SMTP->quit;
     return success "Message sent", prop => { bad => [ @bad ], };
-}
-
-sub DESTROY {
-    $SMTP->quit if $SMTP;
 }
 
 1;
