@@ -7,7 +7,7 @@ use Symbol qw(gensym);
 
 use vars qw[$SENDMAIL $VERSION];
 
-$VERSION   = '2.193';
+$VERSION   = '2.194';
 
 sub is_available {
     my $class = shift;
