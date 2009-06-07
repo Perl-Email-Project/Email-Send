@@ -76,8 +76,6 @@ executable, alter the C<$Email::Send::Qmail::QMAIL> package variable.
 
   $Email::Send::Qmail::QMAIL = '/usr/sbin/qmail-inject';
 
-Any arguments passed to C<send> will be passed to C<qmail-inject>.
-
 =head1 SEE ALSO
 
 L<Email::Send>,

@@ -85,9 +85,6 @@ alter the C<$Email::Send::Sendmail::SENDMAIL> package variable.
 
   $Email::Send::Sendmail::SENDMAIL = '/usr/sbin/sendmail';
 
-Any arguments passed to C<send> will be passed to C<sendmail>. The
-C<-t -oi> arguments are sent automatically.
-
 =head1 SEE ALSO
 
 L<Email::Send>,
