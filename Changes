@@ -2,6 +2,8 @@
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
           add /usr/sbin/sendmail as last place to always look for sendmail
+          add /usr/lib/sendmail as last place to always look for sendmail
+          if $QMAIL variable for Qmail subclass is -x, use it
 
 2.194     2009-01-02
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
