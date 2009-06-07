@@ -21,6 +21,11 @@ sub _find_qmail {
     my $class = shift;
 
     my $sendmail;
+
+    if (-x $QMAIL) {
+      return $QMAIL;
+    }
+
     for my $dir (File::Spec->path) {
         if ( -x "$dir/$QMAIL" ) {
             $sendmail = "$dir/$QMAIL";

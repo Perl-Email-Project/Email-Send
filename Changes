@@ -1,3 +1,8 @@
+2.195     2009-06-07
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          add /usr/sbin/sendmail as last place to always look for sendmail
+
 2.194     2009-01-02
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
