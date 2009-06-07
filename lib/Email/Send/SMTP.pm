@@ -21,14 +21,17 @@ sub is_available {
 sub get_env_sender {
   my ($class, $message) = @_;
 
-  my $from = (Email::Address->parse($message->header('From')))[0]->address;
+  return unless my $hdr = $message->header('From');
+  my $from = (Email::Address->parse($hdr))[0]->address;
 }
 
 sub get_env_recipients {
   my ($class, $message) = @_;
 
-  my %to = map { $_->address => 1 }
-           map { Email::Address->parse($message->header($_)) }
+  my %to = map  { $_->address => 1 }
+           map  { Email::Address->parse($message->header($_)) }
+           grep { defined and length }
+           map  { $message->header($_) }
            qw(To Cc Bcc);
 
   return keys %to;
