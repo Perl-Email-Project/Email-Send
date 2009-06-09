@@ -2,7 +2,7 @@ package Email::Send;
 use strict;
 
 use vars qw[$VERSION];
-$VERSION   = '2.195';
+$VERSION   = '2.196';
 
 use Email::Simple;
 use Module::Pluggable

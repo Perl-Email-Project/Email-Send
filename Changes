@@ -1,3 +1,10 @@
+Revision history for Email-Send
+
+2.196     2009-06-09
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          reduce reliance of tests on screw-up-able Module::Pluggable call
+
 2.195     2009-06-07
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 

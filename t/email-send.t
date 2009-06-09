@@ -6,10 +6,10 @@ use_ok 'Email::Send';
 can_ok 'Email::Send', 'plugins', 'mailer_available', 'mailer',
                       'mailer_args', 'message_modifier', 'send', 'all_mailers';
 use_ok $_ 
-  for grep { /NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
+  for map { "Email::Send::$_" } qw(NNTP SMTP Qmail Sendmail);
 
 can_ok $_, 'is_available', 'send'
-  for grep { /NNTP|SMTP|Qmail|Sendmail/ } Email::Send->plugins;
+  for map { "Email::Send::$_" } qw(NNTP SMTP Qmail Sendmail);
 
 my $mailer = Email::Send->new();
 isa_ok $mailer, 'Email::Send';
