@@ -5,7 +5,7 @@ use vars qw[$VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION = '2.196';
+$VERSION = '2.197';
 
 sub is_available {
     my ($class, %args) = @_;
@@ -29,7 +29,7 @@ sub get_env_recipients {
   my ($class, $message) = @_;
 
   my %to = map  { $_->address => 1 }
-           map  { Email::Address->parse($message->header($_)) }
+           map  { Email::Address->parse($_) }
            grep { defined and length }
            map  { $message->header($_) }
            qw(To Cc Bcc);

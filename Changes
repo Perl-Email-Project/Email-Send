@@ -1,5 +1,11 @@
 Revision history for Email-Send
 
+2.197     2009-06-13
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          fix regression introduced into SMTP transport's "to" detector
+          (thanks to John Maslanik for bug report)
+
 2.196     2009-06-09
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
