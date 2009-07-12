@@ -25,8 +25,10 @@ sub _find_sendmail {
     my $sendmail;
     for my $dir (
       File::Spec->path,
-      File::Spec->catfile('', qw(usr sbin)),
-      File::Spec->catfile('', qw(usr lib)),
+      ($ENV{PERL_EMAIL_SEND_SENDMAIL_NO_EXTRA_PATHS} ? () : (
+        File::Spec->catfile('', qw(usr sbin)),
+        File::Spec->catfile('', qw(usr lib)),
+      ))
     ) {
         if ( -x "$dir/sendmail" ) {
             $sendmail = "$dir/sendmail";

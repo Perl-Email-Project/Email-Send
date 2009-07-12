@@ -15,6 +15,8 @@ blah blah blah
 EOF
 
 {
+  undef $Email::Send::Sendmail::SENDMAIL;
+  local $ENV{PERL_EMAIL_SEND_SENDMAIL_NO_EXTRA_PATHS} = 1;
   local $ENV{PATH} = '';
   ok( Email::Send::Sendmail->is_available, 'Email::Send always is available' );
   my $msg = Email::Send::Sendmail->is_available;
