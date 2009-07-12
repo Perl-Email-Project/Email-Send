@@ -2,7 +2,7 @@ NAME
     Email::Send - Simply Sending Email
 
 VERSION
-    2.197
+    2.198
 
 SYNOPSIS
       use Email::Send;

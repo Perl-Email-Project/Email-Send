@@ -5,7 +5,7 @@ use vars qw[$VERSION];
 use Email::Address;
 use Return::Value;
 
-$VERSION = '2.197';
+$VERSION = '2.198';
 
 sub is_available {
     my ($class, %args) = @_;

@@ -1,5 +1,9 @@
 Revision history for Email-Send
 
+2.198     2009-07-12
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+          fix the paths added in 2.195; thanks, ansgar from uni-heidelberg
+
 2.197     2009-06-13
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 

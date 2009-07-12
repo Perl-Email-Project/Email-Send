@@ -5,7 +5,7 @@ use vars qw[$NNTP $VERSION];
 use Net::NNTP;
 use Return::Value;
 
-$VERSION   = '2.197';
+$VERSION   = '2.198';
 
 sub is_available {
     return   eval { require Net::NNTP }
