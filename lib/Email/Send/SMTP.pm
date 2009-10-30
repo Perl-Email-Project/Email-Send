@@ -60,12 +60,20 @@ sub send {
                    :              'Net::SMTP';
 
     eval "require $smtp_class; 1" or die;
+
+    if ( $smtp_class eq 'Net::SMTP::TLS' ) {
+        # ::TLS has different User/Password than the rest
+        $args{User}     ||= $args{username};
+        $args{Password} ||= $args{password};
+    }
+
     my $SMTP = $smtp_class->new($host, %args);
     return failure "Couldn't connect to $host" unless $SMTP;
     
     my ($user, $pass) = @args{qw[username password]};
 
-    if ( $user ) {
+    # for ::TLS, the auth is done by the new()
+    if ( $user and not $smtp_class eq 'Net::SMTP::TLS'  ) {
         $SMTP->auth($user, $pass)
           or return failure "Couldn't authenticate '$user:...'";
     }
@@ -75,7 +83,7 @@ sub send {
         my $from = $class->get_env_sender($message);
 
         # ::TLS has no useful return value, but will croak on failure.
-        eval { $SMTP->mail($from) } or return failure "FROM: <$from> denied";
+        eval { $SMTP->mail($from); 1 } or return failure "FROM: <$from> denied";
 
         my @to = $class->get_env_recipients($message);
 
@@ -96,7 +104,14 @@ sub send {
 
     return failure $@ if $@;
 
-    return failure "Can't send data" unless $SMTP->data( $message->as_string );
+    if ( $smtp_class eq 'Net::SMTP::TLS' ) {
+        $SMTP->data;
+        $SMTP->datasend( $message->as_string );
+        $SMTP->dataend;
+    }
+    else {
+        return failure "Can't send data" unless $SMTP->data( $message->as_string );
+    }
 
     $SMTP->quit;
     return success "Message sent", prop => { bad => [ @bad ], };
