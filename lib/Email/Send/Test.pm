@@ -111,7 +111,7 @@ sub send {
 
 =head2 emails
 
-The C<emails> method is the prefered and recommended method of getting
+The C<emails> method is the preferred and recommended method of getting
 access to the email trap.
 
 In list context, returns the content of the trap array as a list.
