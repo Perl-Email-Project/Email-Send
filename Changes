@@ -1,5 +1,11 @@
 Revision history for Email-Send
 
+2.199     2013-08-18
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          stop warning from Return::Value; if it didn't switch you to
+          Email::Sender by now, it isn't gonna
+
 2.198     2009-07-12
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
           fix the paths added in 2.195; thanks, ansgar from uni-heidelberg

@@ -3,7 +3,11 @@ use strict;
 
 use vars qw[$VERSION];
 use Email::Address;
-use Return::Value;
+BEGIN {
+  local $Return::Value::NO_CLUCK = 1;
+  require Return::Value;
+  Return::Value->import;
+}
 
 $VERSION = '2.198';
 

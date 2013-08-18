@@ -8,7 +8,11 @@ use Email::Simple;
 use Module::Pluggable
   search_path => 'Email::Send',
   except      => $Email::Send::__plugin_exclusion;
-use Return::Value;
+BEGIN {
+  local $Return::Value::NO_CLUCK = 1;
+  require Return::Value;
+  Return::Value->import;
+}
 use Scalar::Util ();
 
 =head1 NAME

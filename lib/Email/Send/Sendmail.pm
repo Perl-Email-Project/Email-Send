@@ -2,7 +2,11 @@ package Email::Send::Sendmail;
 use strict;
 
 use File::Spec ();
-use Return::Value;
+BEGIN {
+  local $Return::Value::NO_CLUCK = 1;
+  require Return::Value;
+  Return::Value->import;
+}
 use Symbol qw(gensym);
 
 use vars qw[$SENDMAIL $VERSION];
