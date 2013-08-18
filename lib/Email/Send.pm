@@ -4,8 +4,8 @@ use strict;
 use vars qw[$VERSION];
 $VERSION   = '2.198';
 
-use Email::Simple;
-use Module::Pluggable
+use Email::Simple 1.92;
+use Module::Pluggable 2.97
   search_path => 'Email::Send',
   except      => $Email::Send::__plugin_exclusion;
 BEGIN {
@@ -13,7 +13,7 @@ BEGIN {
   require Return::Value;
   Return::Value->import;
 }
-use Scalar::Util ();
+use Scalar::Util 1.02 ();
 
 =head1 NAME
 

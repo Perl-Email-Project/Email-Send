@@ -2,7 +2,7 @@ package Email::Send::SMTP;
 use strict;
 
 use vars qw[$VERSION];
-use Email::Address;
+use Email::Address 1.80;
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
   require Return::Value;
