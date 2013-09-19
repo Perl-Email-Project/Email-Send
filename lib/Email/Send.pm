@@ -177,7 +177,7 @@ sub send {
 
   my @available = $sender->all_mailers;
 
-Returns a list of availabe mailers. These are mailers that are
+Returns a list of available mailers. These are mailers that are
 installed on your computer and register themselves as available.
 
 =cut
