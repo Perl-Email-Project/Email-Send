@@ -140,7 +140,7 @@ Email::Send::SMTP - Send Messages using SMTP
 
 This mailer for C<Email::Send> uses C<Net::SMTP> to send a message with
 an SMTP server. The first invocation of C<send> requires an SMTP server
-arguments. Subsequent calls will remember the the first setting until
+arguments. Subsequent calls will remember the first setting until
 it is reset.
 
 Any arguments passed to C<send> will be passed to C<< Net::SMTP->new() >>,
