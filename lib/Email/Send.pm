@@ -259,6 +259,7 @@ sub _send_it {
 sub _try_all {
     my ($self, $simple) = @_;
     foreach ( $self->all_mailers ) {
+      next if $_ eq 'Email::Send::Test';
       my $sent = $self->_send_it($_, $simple);
       return $sent if $sent;
     }

@@ -1,5 +1,10 @@
 Revision history for Email-Send
 
+2.200     2015-02-25
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          when trying to pick the first available mailer, never pick Test
+
 2.199     2013-08-18
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
