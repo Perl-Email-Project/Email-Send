@@ -1,2 +1,3 @@
 .build
 Email-Send-*
+sendmail.log
