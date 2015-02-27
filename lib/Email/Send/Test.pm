@@ -70,7 +70,7 @@ use strict;
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '2.199';
+	$VERSION = '2.200';
 }
 
 # No longer allow direct access to the array
