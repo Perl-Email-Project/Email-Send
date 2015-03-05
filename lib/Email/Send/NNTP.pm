@@ -9,7 +9,7 @@ BEGIN {
   Return::Value->import;
 }
 
-$VERSION   = '2.200';
+$VERSION   = '2.201';
 
 sub is_available {
     return   eval { require Net::NNTP }

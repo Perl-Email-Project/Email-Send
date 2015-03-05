@@ -1,5 +1,10 @@
 Revision history for Email-Send
 
+2.201     2015-03-05
+          ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+          add x_deprecated metadata
+
 2.200     2015-02-25
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
