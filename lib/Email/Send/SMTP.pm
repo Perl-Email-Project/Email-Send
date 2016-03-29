@@ -1,7 +1,9 @@
 package Email::Send::SMTP;
 use strict;
 
-use vars qw[$VERSION];
+our $VERSION   = '2.202';
+$VERSION = eval $VERSION;
+
 use Email::Address 1.80;
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
@@ -9,7 +11,6 @@ BEGIN {
   Return::Value->import;
 }
 
-$VERSION = '2.201';
 
 sub is_available {
     my ($class, %args) = @_;

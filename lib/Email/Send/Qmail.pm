@@ -1,6 +1,9 @@
 package Email::Send::Qmail;
 use strict;
 
+our $VERSION = '2.202';
+$VERSION = eval $VERSION;
+
 use File::Spec ();
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
@@ -9,9 +12,8 @@ BEGIN {
 }
 use Symbol qw(gensym);
 
-use vars qw[$QMAIL $VERSION];
+use vars qw[$QMAIL];
 $QMAIL   ||= q[qmail-inject];
-$VERSION   = '2.201';
 
 sub is_available {
     my $class = shift;

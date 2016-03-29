@@ -1,6 +1,9 @@
 package Email::Send::Sendmail;
 use strict;
 
+our $VERSION = '2.202';
+$VERSION = eval $VERSION;
+
 use File::Spec ();
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
@@ -9,9 +12,7 @@ BEGIN {
 }
 use Symbol qw(gensym);
 
-use vars qw[$SENDMAIL $VERSION];
-
-$VERSION   = '2.201';
+use vars qw[$SENDMAIL];
 
 sub is_available {
     my $class = shift;

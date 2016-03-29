@@ -1,13 +1,14 @@
 package Email::Send;
 use strict;
 
-use vars qw[$VERSION];
-$VERSION   = '2.201';
+our $VERSION   = '2.202';
+$VERSION = eval $VERSION;
 
 use Email::Simple 1.92;
 use Module::Pluggable 2.97
   search_path => 'Email::Send',
   except      => $Email::Send::__plugin_exclusion;
+
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
   require Return::Value;

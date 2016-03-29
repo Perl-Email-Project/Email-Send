@@ -1,15 +1,16 @@
 package Email::Send::NNTP;
 use strict;
 
-use vars qw[$NNTP $VERSION];
+our $VERSION = '2.202';
+$VERSION = eval $VERSION;
+
+use vars qw[$NNTP];
 use Net::NNTP;
 BEGIN {
   local $Return::Value::NO_CLUCK = 1;
   require Return::Value;
   Return::Value->import;
 }
-
-$VERSION   = '2.201';
 
 sub is_available {
     return   eval { require Net::NNTP }
