@@ -1,4 +1,9 @@
-Revision history for Email-Send
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+    ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
+
+    - Updated documentation to add contributors list.
 
 2.201     2015-03-05
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **

@@ -11,16 +11,16 @@ Email::Send::Test - Captures emails sent via Email::Send for testing
   # Load as normal
   use Email::Send;
   use Email::Send::Test;
-  
+
   # Always clear the email trap before each test to prevent unexpected
   # results, and thus spurious test results.
   Email::Send::Test->clear;
-  
+
   ### BEGIN YOUR CODE TO BE TESTED (example follows)
   my $sender = Email::Send->new({ mailer => 'Test' });
   $sender->send( $message );
   ### END YOUR CODE TO BE TESTED
-  
+
   # Check that the number and type (and content) of mails
   # matched what you expect.
   my @emails = Email::Send::Test->emails;
@@ -173,19 +173,29 @@ L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Email-Send-Test>
 
 For other issues, or commercial enhancement or support, contact the author.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Current maintainer: Ricardo SIGNES, <F<rjbs@cpan.org>>.
+Adam Kennedy <F<cpan@ali.as>>, L<http://ali.as/>.
 
-Original author: Adam Kennedy E<lt>cpan@ali.asE<gt>, L<http://ali.as/>
+=head1 CONTRIBUTORS
 
-=head1 COPYRIGHT
+=over
+
+=item *
+
+Chase Whitener, <F<capoeirab@cpan.org>>.
+
+=item *
+
+Ricardo SIGNES, <F<rjbs@cpan.org>>.
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (c) 2004 - 2005 Adam Kennedy. All rights reserved.
-This program is free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
 
-The full text of the license can be found in the
-LICENSE file included with this module.
+This module is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
 =cut

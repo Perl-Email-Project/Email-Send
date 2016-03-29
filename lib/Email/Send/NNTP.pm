@@ -46,9 +46,9 @@ Email::Send::NNTP - Post Messages to a News Server
   use Email::Send;
 
   my $mailer = Email::Send->new({mailer => 'NNTP'});
-  
+
   $mailer->mailer_args([Host => 'nntp.example.com']);
-  
+
   $mailer->send($message);
 
 =head1 DESCRIPTION
@@ -67,14 +67,27 @@ L<perl>.
 
 =head1 AUTHOR
 
-Current maintainer: Ricardo SIGNES, <F<rjbs@cpan.org>>.
+Casey West, <F<casey@geeknest.com>>.
 
-Original author: Casey West, <F<casey@geeknest.com>>.
+=head1 CONTRIBUTORS
 
-=head1 COPYRIGHT
+=over
 
-  Copyright (c) 2004 Casey West.  All rights reserved.
-  This module is free software; you can redistribute it and/or modify it
-  under the same terms as Perl itself.
+=item *
+
+Chase Whitener, <F<capoeirab@cpan.org>>.
+
+=item *
+
+Ricardo SIGNES, <F<rjbs@cpan.org>>.
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2004 Casey West.  All rights reserved.
+
+This module is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
 =cut

@@ -69,7 +69,7 @@ sub send {
 
     my $SMTP = $smtp_class->new($host, %args);
     return failure "Couldn't connect to $host" unless $SMTP;
-    
+
     my ($user, $pass) = @args{qw[username password]};
 
     # for ::TLS, the auth is done by the new()
@@ -77,7 +77,7 @@ sub send {
         $SMTP->auth($user, $pass)
           or return failure "Couldn't authenticate '$user:...'";
     }
-    
+
     my @bad;
     eval {
         my $from = $class->get_env_sender($message);
@@ -98,7 +98,7 @@ sub send {
               @bad = keys %to;
           }
         }
- 
+
         return failure "No valid recipients" if @bad == @to;
     };
 
@@ -130,10 +130,10 @@ Email::Send::SMTP - Send Messages using SMTP
   use Email::Send;
 
   my $mailer = Email::Send->new({mailer => 'SMTP'});
-  
+
   $mailer->mailer_args([Host => 'smtp.example.com:465', ssl => 1])
     if $USE_SSL;
-  
+
   $mailer->send($message);
 
 =head1 DESCRIPTION
@@ -156,7 +156,7 @@ and contain more information on just what went wrong.
 Here is an example of dealing with failure.
 
   my $return = send SMTP => $message, 'localhost';
-  
+
   die "$return" if ! $return;
 
 The stringified version of the return value will have the text of the
@@ -194,14 +194,27 @@ L<perl>.
 
 =head1 AUTHOR
 
-Current maintainer: Ricardo SIGNES, <F<rjbs@cpan.org>>.
+Casey West, <F<casey@geeknest.com>>.
 
-Original author: Casey West, <F<casey@geeknest.com>>.
+=head1 CONTRIBUTORS
 
-=head1 COPYRIGHT
+=over
 
-  Copyright (c) 2004 Casey West.  All rights reserved.
-  This module is free software; you can redistribute it and/or modify it
-  under the same terms as Perl itself.
+=item *
+
+Chase Whitener, <F<capoeirab@cpan.org>>.
+
+=item *
+
+Ricardo SIGNES, <F<rjbs@cpan.org>>.
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2004 Casey West.  All rights reserved.
+
+This module is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
 =cut
