@@ -111,7 +111,7 @@
    "version" : "2.202",
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.022000"
+         "version" : "5.023009"
       },
       "plugins" : [
          {
@@ -140,12 +140,12 @@
             "class" : "Dist::Zilla::Plugin::Deprecated",
             "config" : {
                "Dist::Zilla::Plugin::Deprecated" : {
-                  "all" : "1",
+                  "all" : 1,
                   "modules" : []
                }
             },
             "name" : "Deprecated",
-            "version" : "0.004"
+            "version" : "0.005"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
@@ -240,7 +240,7 @@
                }
             },
             "name" : "Readme_Github",
-            "version" : "0.150250"
+            "version" : "0.160630"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Contributors",
