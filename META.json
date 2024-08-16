@@ -44,6 +44,7 @@
             "Return::Value" : "0",
             "Scalar::Util" : "1.02",
             "Symbol" : "0",
+            "perl" : "v5.14.0",
             "strict" : "0",
             "vars" : "0"
          }
@@ -64,7 +65,6 @@
             "Mail::Internet" : "0",
             "Test::More" : "0",
             "lib" : "0",
-            "perl" : "5.006",
             "warnings" : "0"
          }
       }
