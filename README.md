@@ -184,13 +184,13 @@ passed to `send`. It is used by calling `Email::Send::send`.
 
 # SEE ALSO
 
-[Email::Simple](https://metacpan.org/pod/Email::Simple),
-[Email::Abstract](https://metacpan.org/pod/Email::Abstract),
-[Email::Send::IO](https://metacpan.org/pod/Email::Send::IO),
-[Email::Send::NNTP](https://metacpan.org/pod/Email::Send::NNTP),
-[Email::Send::Qmail](https://metacpan.org/pod/Email::Send::Qmail),
-[Email::Send::SMTP](https://metacpan.org/pod/Email::Send::SMTP),
-[Email::Send::Sendmail](https://metacpan.org/pod/Email::Send::Sendmail),
+[Email::Simple](https://metacpan.org/pod/Email%3A%3ASimple),
+[Email::Abstract](https://metacpan.org/pod/Email%3A%3AAbstract),
+[Email::Send::IO](https://metacpan.org/pod/Email%3A%3ASend%3A%3AIO),
+[Email::Send::NNTP](https://metacpan.org/pod/Email%3A%3ASend%3A%3ANNTP),
+[Email::Send::Qmail](https://metacpan.org/pod/Email%3A%3ASend%3A%3AQmail),
+[Email::Send::SMTP](https://metacpan.org/pod/Email%3A%3ASend%3A%3ASMTP),
+[Email::Send::Sendmail](https://metacpan.org/pod/Email%3A%3ASend%3A%3ASendmail),
 [perl](https://metacpan.org/pod/perl).
 
 # PERL EMAIL PROJECT
