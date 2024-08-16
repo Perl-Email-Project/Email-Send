@@ -1,5 +1,5 @@
 package Email::Send;
-use strict;
+use v5.14.0;
 
 our $VERSION   = '2.202';
 $VERSION = eval $VERSION;
