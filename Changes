@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+2.202     2024-08-16
           ** PLEASE CONSIDER USING EMAIL-SENDER INSTEAD **
 
           - Updated documentation to add contributors list.
